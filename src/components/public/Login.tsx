@@ -1,84 +1,93 @@
-import { Box, RadioGroup, FormControlLabel, Radio, TextField, Button, Typography } from "@mui/material";
+import { Box, RadioGroup, FormControlLabel, Radio, TextField, Typography, Button } from "@mui/material";
 import styles from './Login.module.css';
-import { useEffect, useState } from "react";
-import axios from '../../utils/axios'
-import { LoadingButton } from "@mui/lab"
+
+import * as Yup from 'yup';
+import { Formik, ErrorMessage } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../../utils/auth/AuthContext";
+import { Navigate, useNavigate } from "react-router-dom";
+
+const LoginSchema = Yup.object().shape({
+    role: Yup.string().required("Required"),
+    userid: Yup.string().trim().required("Required"),
+    password: Yup.string().required("Required"),
+})
+
 const Login = () => {
 
+    const { setAuthState } = useContext(AuthContext);
 
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null)
-    const [role, setRole] = useState("");
-    const [userid, setUserid] = useState("");
-    const [password, setPassword] = useState("");
-
-
-    const handleSubmit = () => {
-
-        setLoading(true);
-        axios.post('/login', {
-            role: role,
-            userid: userid,
-            password: password
-        }).then((res) => {
-            if (res.status === 200) {
-                window.alert("Authentication Successful")
-            }
-        }).catch((e) => {
-            console.log(e);
-
-            setError(e.response?.data.message)
-
-        }).finally(() => {
-            setLoading(false);
-        })
-
-    }
-
-    useEffect(() => {
-
-        setError(null);
-
-    }, [userid, password])
-
+    const navigate = useNavigate();
 
     return (
 
         <Box component={'div'} className={styles.mainContainer}>
-            <Box component={'div'} className={styles.loginBox}>
 
-                <RadioGroup name='userType' row defaultValue={''} value={role} onChange={(e) => { setRole(e.target.value) }}>
-                    <FormControlLabel value={"student"} control={<Radio />} label={"Student"} />
-                    <FormControlLabel value={'tpo'} control={<Radio />} label={"TPO"} />
-                    <FormControlLabel value={'hod'} control={<Radio />} label={"HOD"} />
-                    <FormControlLabel value={'alumni'} control={<Radio />} label={"Alumni"} />
-                </RadioGroup>
+            <Formik
+                initialValues={{
+                    role: '',
+                    userid: '',
+                    password: '',
+                }}
+                validationSchema={LoginSchema}
+                onSubmit={(values) => {
+                    console.log(values);
+                    setAuthState(prev => ({ ...prev, authenticated: true }));
+                    if (values.role === 'student')
+                        navigate('/student')
 
-                <TextField
-                    placeholder='Enter User ID'
-                    label="User ID"
-                    value={userid}
-                    onChange={(e) => setUserid(e.target.value)}
-                />
+                    if (values.role === 'tpo')
+                        navigate('/tpo')
+                }}
+            >
 
-                <TextField
-                    placeholder='Enter Password'
-                    label="Password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
+                {({ values, handleChange, handleSubmit, isSubmitting, errors, touched }) => {
 
-                {error && <Typography variant={'body2'} color={"red"}>{error}</Typography>}
+                    return (
+                        <Box component={'div'} style={{
+                            position: 'relative',
+                            top: '25%'
+                        }}>
+                            <form onSubmit={handleSubmit}>
+                                <Box component={'div'} className={styles.loginBox}>
+                                    <RadioGroup name='userType' row defaultValue={''} value={values.role} onChange={handleChange('role')}>
+                                        <FormControlLabel value={"student"} control={<Radio />} label={"Student"} />
+                                        <FormControlLabel value={'tpo'} control={<Radio />} label={"TPO"} />
+                                        <FormControlLabel value={'hod'} control={<Radio />} label={"HOD"} />
+                                        <FormControlLabel value={'alumni'} control={<Radio />} label={"Alumni"} />
+                                    </RadioGroup>
 
-                <LoadingButton
-                    variant='outlined'
-                    onClick={handleSubmit}
-                    loading={loading}
-                    loadingIndicator="Loading…"
-                >
-                    <span>Login</span>
-                </LoadingButton>
-            </Box>
+                                    {errors.role && <ErrorMessage name='role' >{(msg) => (<Typography color={'red'}>{msg}</Typography>)}</ErrorMessage>}
+
+                                    <TextField
+                                        placeholder='Enter User ID'
+                                        label="User ID"
+                                        value={values.userid}
+                                        onChange={handleChange('userid')}
+                                        error={touched.userid && Boolean(errors.userid)}
+                                        helperText={touched.userid && errors.userid}
+                                    />
+
+                                    <TextField
+                                        placeholder='Enter Password'
+                                        label="Password"
+                                        value={values.password}
+                                        onChange={handleChange('password')}
+                                        error={touched.password && Boolean(errors.password)}
+                                        helperText={touched.password && errors.password}
+                                    />
+                                    <Button
+                                        variant='outlined'
+                                        type="submit"
+                                    >
+                                        <span>Login</span>
+                                    </Button>
+                                </Box>
+                            </form>
+                        </Box>
+                    )
+                }}
+            </Formik>
         </Box>
     )
 }
