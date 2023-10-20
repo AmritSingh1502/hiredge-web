@@ -5,18 +5,20 @@ import * as Yup from 'yup';
 import { Formik, ErrorMessage } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../../utils/auth/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from '../../utils/axios';
+
+
 
 const LoginSchema = Yup.object().shape({
     role: Yup.string().required("Required"),
-    userid: Yup.string().trim().required("Required"),
+    user_id: Yup.string().trim().required("Required"),
     password: Yup.string().required("Required"),
 })
 
 const Login = () => {
 
     const { setAuthState } = useContext(AuthContext);
-
     const navigate = useNavigate();
 
     return (
@@ -26,18 +28,38 @@ const Login = () => {
             <Formik
                 initialValues={{
                     role: '',
-                    userid: '',
+                    user_id: '',
                     password: '',
                 }}
                 validationSchema={LoginSchema}
                 onSubmit={(values) => {
                     console.log(values);
-                    setAuthState(prev => ({ ...prev, authenticated: true }));
-                    if (values.role === 'student')
+                    api.post('/login', values, {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }).then((res) => {
+                        if (res.status === 200) {
+                            window.alert("Authentication Successful");
+                            setAuthState(prev => ({
+                                user_id: res.data.user_id,
+                                authenticated: true,
+                                access_token: res.data.access_token,
+                                role: res.data.role
+                            }));
+                            console.log(res);
+                        }
+                    }).then(() => {
+                        if (values.role === 'student') {
                         navigate('/student')
+                        }
 
-                    if (values.role === 'tpo')
-                        navigate('/tpo')
+                        if (values.role === 'tpo')
+                            navigate('/tpo')
+                    }).catch((e) => {
+                        console.log(e);
+                    })
+
+
                 }}
             >
 
@@ -62,10 +84,10 @@ const Login = () => {
                                     <TextField
                                         placeholder='Enter User ID'
                                         label="User ID"
-                                        value={values.userid}
-                                        onChange={handleChange('userid')}
-                                        error={touched.userid && Boolean(errors.userid)}
-                                        helperText={touched.userid && errors.userid}
+                                        value={values.user_id}
+                                        onChange={handleChange('user_id')}
+                                        error={touched.user_id && Boolean(errors.user_id)}
+                                        helperText={touched.user_id && errors.user_id}
                                     />
 
                                     <TextField
