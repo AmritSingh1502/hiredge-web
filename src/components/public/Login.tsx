@@ -22,9 +22,9 @@ const Login = () => {
     const navigate = useNavigate();
 
     return (
-
+        
         <Box component={'div'} className={styles.mainContainer}>
-
+            
             <Formik
                 initialValues={{
                     role: '',
@@ -72,6 +72,9 @@ const Login = () => {
                         }}>
                             <form onSubmit={handleSubmit}>
                                 <Box component={'div'} className={styles.loginBox}>
+                                
+                                    <h1>Login</h1>
+                        
                                     <RadioGroup name='userType' row defaultValue={''} value={values.role} onChange={handleChange('role')}>
                                         <FormControlLabel value={"student"} control={<Radio />} label={"Student"} />
                                         <FormControlLabel value={'tpo'} control={<Radio />} label={"TPO"} />
