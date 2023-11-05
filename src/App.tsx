@@ -10,6 +10,7 @@ import HODPage from './components/hod';
 import Unauthorized from './components/common/Unauthorized';
 import PersistLogin from './components/common/PersistLogin';
 import Cookies from 'js-cookie'
+import Profile from './components/student/Profile/Profile';
 
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
         <Route path='/alumni' element={<ProtectedRoute role='alumni'><AlumniPage /></ProtectedRoute>} />
 
         <Route path='/hod' element={<ProtectedRoute role='hod'><HODPage /></ProtectedRoute>} />
+
+        <Route path="/StudentProfile" element={<ProtectedRoute role='student'><Profile /></ProtectedRoute>} />
+
       </Route>
 
       <Route path='/unauthorized' element={<Unauthorized />} />
