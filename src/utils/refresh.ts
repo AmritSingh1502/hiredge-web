@@ -8,6 +8,8 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
         try{
+            
+            console.log("Requesting From refresh");
         const response = await axios.get('/refresh', {
             headers: {
                 "Content-Type":'application/json'
@@ -22,7 +24,6 @@ const useRefreshToken = () => {
         console.log(e);
     }
 
-        // return response.data?.accesstoken;
     }
 
     return refresh;

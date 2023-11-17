@@ -29,15 +29,14 @@ const PersistLogin = () => {
             }
 
         }
-
-        !authState?.access_token ? verifyRefreshToken() : setIsloading(false);
+        console.log("Requesting From refresh");
+        !authState.access_token ? verifyRefreshToken() : setIsloading(false);
 
     }, [])
 
 
     return (
         <>
-
             {
                 isLoading ?
                     <p>Loading.....</p> :
