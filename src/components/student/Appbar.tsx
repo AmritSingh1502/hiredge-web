@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, IconButton, Toolbar, Tooltip, Typography, Button } from "@mui/material";
 import useLogout from "../../utils/hooks/useLogout";
 
 export default function Appbar() {
@@ -24,9 +24,9 @@ export default function Appbar() {
          </IconButton>
        </Tooltip>
 
-        <IconButton sx={{ color: 'black' }} onClick={logout}>
+        <Button sx={{ color: 'black' }} onClick={logout}>
           <Typography  variant="h5" sx={{ color:'black' , fontWeight:'500', fontFamily:'Arial' }}>Logout</Typography>
-        </IconButton>
+        </Button>
       </Toolbar>
     </AppBar>
   );
