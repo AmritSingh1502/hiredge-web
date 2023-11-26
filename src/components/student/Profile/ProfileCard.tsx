@@ -2,6 +2,11 @@ import { Box, Button, Link, Typography } from "@mui/material";
 
 const ProfileCard = (props:
     { USN: string , Name:string, Branch:string, CGPA:string, SSE: string, SE:string ,Mail:string , Phone: string }) => {
+
+      const handleHomePageClick = () => {
+        window.open('/student', '_blank');
+      }
+
   return (
     <Box
       p={3}
@@ -77,6 +82,17 @@ const ProfileCard = (props:
       >
         Edit Profile
       </Button>
+      <br />
+      <Button 
+        variant="contained" 
+        color="primary"
+        size="small"
+        sx={{ mt: 2, px: 5 }}
+        onClick={ handleHomePageClick }
+      >
+        HomePage
+      </Button>
+      
     </Box>
   );
 };

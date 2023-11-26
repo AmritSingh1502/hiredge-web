@@ -55,6 +55,13 @@ const Login = () => {
 
                         if (values.role === 'tpo')
                             navigate('/tpo')
+                        
+                        if (values.role ==='hod'){
+                            navigate("/hod")
+                        }
+                        if(values.role === 'alumni'){
+                            navigate('/alumni')
+                        }
                     }).catch((e) => {
                         console.log(e);
                     })
