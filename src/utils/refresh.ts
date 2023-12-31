@@ -1,30 +1,33 @@
 
 import { AuthContext } from "./auth/AuthContext";
 import { useContext } from "react";
-import axios from "./axios";
+import api from "./axios";
 
 const useRefreshToken = () => {
     const { setAuthState} = useContext(AuthContext)
 
     const refresh = async () => {
         try{
-            
-            console.log("Requesting From refresh");
-        const response = await axios.get('/refresh', {
+        const response = await api.get('/refresh', {
             headers: {
-                "Content-Type":'application/json'
+                "Content-Type":'application/json',
             },
-            withCredentials: true
+            withCredentials: true,
         });
-        setAuthState({role: response.data?.role,
-        access_token: response.data?.accesstoken} )
 
-
+        setAuthState(()=>{
+            return { 
+                role : response.data.role,
+                access_token: response.data.access_token
+            }
+        })
+        return response.data;
     }catch(e){
         console.log(e);
     }
-
+    
     }
+    
 
     return refresh;
 }

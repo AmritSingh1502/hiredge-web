@@ -1,9 +1,6 @@
 import { createContext, useState } from "react";
 
-type AuthStateType = {
-    role: 'student' | 'tpo' | 'hod' | 'alumni' | null;
-    access_token: string | null;
-}
+
 
 type AuthContextType = {
     authState: AuthStateType;
