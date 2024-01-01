@@ -6,7 +6,8 @@ const MenuBar = () => {
 
     return (
         <AppBar sx={{
-            position: 'static'
+            position: 'fixed',
+            top: '56px'
         }}>
             <Toolbar >
 

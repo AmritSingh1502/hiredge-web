@@ -15,7 +15,7 @@ const DrivePage = () => {
         <>
             <Box>
 
-                <Typography>DRive Page</Typography>
+
 
             </Box>
         </>

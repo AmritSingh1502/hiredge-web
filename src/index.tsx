@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './utils/auth/AuthContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
       <App />
+          <ReactQueryDevtools initialIsOpen />
       </AuthProvider>
     </BrowserRouter>
     </QueryClientProvider>
