@@ -10,12 +10,17 @@ const Layout = () => {
 
 
     return (
-        <>
+        <Box>
             <Appbar role={"Alumni"} />
             <MenuBar />
-            <Outlet />
+            <Box sx={{
+                position: 'fixed',
+                top: '112px',
+                width: '100%',
+                height: '98vh',
+            }}><Outlet /></Box>
 
-        </>
+        </Box>
     )
 }
 

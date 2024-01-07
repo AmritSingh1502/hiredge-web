@@ -2,9 +2,7 @@
 
 const AlumniDashboard = () => {
     return (<>
-
         Alumni Dashboard
-
     </>);
 }
 

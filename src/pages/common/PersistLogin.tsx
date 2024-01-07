@@ -20,17 +20,9 @@ const PersistLogin = () => {
         const verifyRefreshToken = async () => {
             try {
                 const response = await refresh();
-                if (response.role === "tpo") {
-                    navigate('/tpo');
-                } else if (response.role === 'student') {
-                    navigate('/student');
-                } else if (response.role === 'alumni') {
-                    navigate('/alumni')
-                } else if (response.role === 'hod') {
-                    navigate('/hod')
-                } else {
-                    navigate('/')
-                }
+                if (!response.access_token) {
+                    navigate(`/login`);
+                } 
             }
             catch (e) {
                 console.log(e)

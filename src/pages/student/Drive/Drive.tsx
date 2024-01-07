@@ -6,12 +6,12 @@ import useAxiosPrivate from "../../../utils/axiosPrivate";
 
 const Drive = () => {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
     const api = useAxiosPrivate();
 
     const result = useQuery({
         queryKey: ['fetchDrive', searchParams.get('id')],
-        queryFn: async (): Promise<DriveType> => (
+        queryFn: async (): Promise<DriveData> => (
             api.get('/student/drive', {
                 params: {
                     id: searchParams.get('id'),
@@ -29,8 +29,8 @@ const Drive = () => {
             {
                 result.isSuccess && (
                     <Box>
-                        <Typography>{result.data.companyDetails.company_name}</Typography>
-                        <Typography>{result.data.companyDetails.company_website}</Typography>
+                        <Typography>{result.data.company_details.company_name}</Typography>
+                        <Typography>{result.data.company_details.company_website}</Typography>
                         <Typography>{result.data.job_title}</Typography>
                         <Typography>{result.data.job_location}</Typography>
                         <Typography>{result.data.job_description}</Typography>

@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import Login from './pages/public/Login';
 
 import ProtectedRoute from './pages/common/ProtectedRoute';
@@ -26,8 +26,12 @@ import DrivePage from './pages/tpo/DrivePage';
 import AlumniLayout from './pages/alumni/Layout/Layout';
 import AlumniDashboard from './pages/alumni/Dashboard/Dashboard';
 import AlumniProfile from './pages/alumni/Profile/Profile';
+import AlumniCompany from './pages/alumni/Company/Company';
 
 import HODLayout from './pages/hod/Layout/Layout';
+import ManageDriveStatus from './pages/tpo/ManageDriveStatus/ManageDriveStatus';
+import ManageStudentDrive from './pages/tpo/ManageStudentDrive/ManageStudentDrive';
+import HomePage from './pages/public/HomePage/HomePage';
 
 
 function App() {
@@ -35,13 +39,12 @@ function App() {
 
   return (
     <Routes>
-
       {/* <Route path='/' element={<div> THis is Home Page </div>} /> */}
       {/* 
       <Route index element={<Login />} /> */}
 
       <Route path='/' element={<PersistLogin />}>
-        <Route index element={<Login />} />
+        <Route index element={<HomePage />} />
         <Route path="student" element={<ProtectedRoute role='student'><StudentLayout /></ProtectedRoute>} >
           <Route index element={<StudentDashboard />} />
           <Route path='profile' element={<StudentProfile />} />
@@ -53,16 +56,22 @@ function App() {
 
         <Route path='tpo' element={<ProtectedRoute role='tpo'><TPOLayout /></ProtectedRoute>}  >
           <Route index element={<TPODashboard />} />
-          <Route path='drive' element={<DrivePage />} />
+          <Route path='drive' element={<Outlet />} >
+            <Route index element={<DrivePage />} />
+            <Route path='managedrive' element={<ManageDriveStatus />} />
+            <Route path='students' element={<ManageStudentDrive />} />
+          </Route>
           <Route path='addcompany' element={<AddCompany />} />
           <Route path='adddrive' element={<AddDrive />} />
           <Route path='addstudent' element={<AddStudentPage />} />
           <Route path='profile' element={<TPOProfile />} />
+
         </Route>
 
         <Route path='alumni' element={<ProtectedRoute role='alumni'><AlumniLayout /></ProtectedRoute>} >
           <Route index element={<AlumniDashboard />} />
           <Route path='profile' element={<AlumniProfile />} />
+          <Route path='experience' element={<AlumniCompany />} />
         </Route>
 
         <Route path='hod' element={<ProtectedRoute role='hod'><HODLayout /></ProtectedRoute>} >

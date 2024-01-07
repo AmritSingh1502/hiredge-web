@@ -12,15 +12,18 @@ const Layout = () => {
     return (
         <Box sx={{
             position: 'absolute',
-
+            width: '100%',
+            height: '100vh'
         }}>
             <Appbar role='TPO' />
             <MenuBar />
             <Box sx={{
                 position: 'relative',
-                top: '122px'
+                top: '122px',
+                width: '100%',
+                height: 'auto'
             }}>
-            <Outlet />
+                <Outlet />
             </Box>
         </Box>
     )

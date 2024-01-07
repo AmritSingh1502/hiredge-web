@@ -3,14 +3,14 @@ import { Box, Button, Stack, TextField, Checkbox, FormControlLabel, Typography, 
 import { FieldArray, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import useAxiosPrivate from '../../../utils/axiosPrivate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Star } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
+
 
 let branchList = ['CSE', 'ISE', 'ECE', 'EEE', 'CHEM', 'CIVIL', 'AI/ML', 'MECH']
 
@@ -32,10 +32,6 @@ type roundData = {
 
 const AddDrive = () => {
     const api = useAxiosPrivate();
-
-    const [isThereTenthEligibilityCriteria, setIsThereTenthEligibilityCriteria] = useState(true);
-    const [isThereTwelfthEligibilityCriteria, setIsThereTwelfthEligibilityCriteria] = useState(true);
-    const [isThereUgEligibilityCriteria, setIsThereUgEligibilityCriteria] = useState(true);
 
     const [search, setSearch] = useState('');
     const [options, setOptions] = useState<{ id: string, label: string }[]>([]);
@@ -96,6 +92,7 @@ const AddDrive = () => {
                                     inputValue={search}
                                     onInputChange={(event, value) => { setSearch(value) }}
                                     renderInput={(params) => (<TextField{...params}
+                                        placeholder='Enter Company Name'
                                         value={props.values.company_name}
                                         InputProps={{
                                             ...params.InputProps,
@@ -172,27 +169,13 @@ const AddDrive = () => {
                                 <Stack direction={'row'} style={{
                                     alignItems: 'center'
                                 }}>
-                                    <FormControlLabel control={<Checkbox
-                                        checked={isThereTenthEligibilityCriteria}
-                                        onChange={() => {
-                                            if (isThereTenthEligibilityCriteria) {
-                                                props.setFieldValue('tenth_cutoff', 0);
-                                            } else
-                                                props.setFieldValue('tenth_cutoff', 70);
 
-                                            setIsThereTenthEligibilityCriteria((prev) => (!prev));
-
-                                        }}
-                                    />}
-                                        label="10th Percentage Criteria"
-                                    />
 
                                     <TextField
                                         type='number'
                                         name='tenth_cutoff'
                                         value={props.values.tenth_cutoff}
                                         onChange={props.handleChange}
-                                        disabled={!isThereTenthEligibilityCriteria}
                                         inputMode='numeric'
                                         inputProps={{ min: 0, max: 100 }}
                                     />
@@ -201,27 +184,11 @@ const AddDrive = () => {
                                 <Stack direction={'row'} style={{
                                     alignItems: 'center'
                                 }}>
-                                    <FormControlLabel control={<Checkbox
-                                        checked={isThereTwelfthEligibilityCriteria}
-                                        onChange={() => {
-                                            if (isThereTwelfthEligibilityCriteria) {
-                                                props.setFieldValue('twelfth_cutoff', 0);
-                                            } else
-                                                props.setFieldValue('twelfth_cutoff', 70);
-
-                                            setIsThereTwelfthEligibilityCriteria((prev) => (!prev));
-
-                                        }}
-                                    />}
-                                        label="12th Percentage Criteria"
-                                    />
-
                                     <TextField
                                         type='number'
                                         name='twelfth_cutoff'
                                         value={props.values.twelfth_cutoff}
                                         onChange={props.handleChange}
-                                        disabled={!isThereTwelfthEligibilityCriteria}
                                         inputMode='numeric'
                                         inputProps={{ min: 0, max: 100 }}
                                     />
@@ -232,26 +199,11 @@ const AddDrive = () => {
                                 <Stack direction={'row'} style={{
                                     alignItems: 'center'
                                 }}>
-                                    <FormControlLabel control={<Checkbox
-                                        checked={isThereUgEligibilityCriteria}
-                                        onChange={() => {
-                                            if (isThereUgEligibilityCriteria) {
-                                                props.setFieldValue('tenth_cutoff', 0.00);
-                                            } else
-                                                props.setFieldValue('tenth_cutoff', 7.00);
-
-                                            setIsThereUgEligibilityCriteria((prev) => (!prev));
-
-                                        }}
-                                    />}
-                                        label="UG CGPA Criteria"
-                                    />
                                     <TextField
                                         type='number'
                                         name='ug_cutoff'
                                         value={props.values.ug_cutoff}
                                         onChange={props.handleChange}
-                                        disabled={!isThereUgEligibilityCriteria}
                                         inputMode='decimal'
                                         inputProps={{ min: 0.00, max: 10.00, step: 0.1 }}
                                     />
@@ -285,7 +237,8 @@ const AddDrive = () => {
 
                                                     props.values.rounds && props.values.rounds.length > 0 ? (props.values.rounds.map((round: roundData, index: number) => (
                                                         <>
-                                                            <Stack direction={'row'} key={index}>
+                                                            <Stack direction={'row'} key={index} alignItems={'center'} columnGap={2}>
+                                                                <Typography>{index + 1}.</Typography>
                                                                 <TextField
                                                                     type='text'
                                                                     placeholder='Enter Round Name'
@@ -293,8 +246,13 @@ const AddDrive = () => {
                                                                     value={round?.name}
                                                                     onChange={props.handleChange}
                                                                 />
-                                                                <TextField />
-                                                                <Button onClick={() => { arrayHelpers.remove(index) }}>Delete</Button>
+                                                                <TextField
+                                                                    type='datetime-local'
+                                                                    placeholder='Enter Round Date'
+                                                                    name={`rounds[${index}].date`}
+                                                                    onChange={props.handleChange}
+                                                                />
+                                                                <Button variant='outlined' color='error' startIcon={<DeleteIcon />} onClick={() => { arrayHelpers.remove(index) }}>Delete</Button>
                                                             </Stack>
 
                                                         </>
@@ -306,8 +264,12 @@ const AddDrive = () => {
                                                     <Button onClick={() => {
                                                         arrayHelpers.push({
                                                             name: '',
+                                                            date: null
                                                         })
-                                                    }}>Add Round Details</Button>
+                                                    }}
+                                                        startIcon={<AddIcon />}
+                                                        variant='outlined'
+                                                    >Add Round Details</Button>
                                                 </Box>
                                             </Stack>)
                                         }

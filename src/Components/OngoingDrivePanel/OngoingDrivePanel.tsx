@@ -11,7 +11,7 @@ const OngoingDrivePanel = () => {
     const navigate = useNavigate();
     const result = useQuery({
         queryKey: ["fetchOngoingDrives"],
-        queryFn: (): Promise<DriveData[]> => (
+        queryFn: (): Promise<DriveCardData[]> => (
             api.get('/getdrives').then((res) => res.data)
         )
     })
@@ -24,7 +24,6 @@ const OngoingDrivePanel = () => {
         Ongoing Drives
         <Stack>
             {
-
                 result.isSuccess && result.data?.map((drive, index) => (
                     <Card sx={{
                         minWidth: '250px',
@@ -43,11 +42,7 @@ const OngoingDrivePanel = () => {
                         </CardActions>
                     </Card>
                 ))
-
-
             }
-
-
         </Stack>
 
 

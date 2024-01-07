@@ -1,39 +1,13 @@
-type DriveData = {
-    _id: string;
-    company_id: string;
-    company_name: string;
-    company_website: string;
-    job_title: string;
-    job_ctc: string;
-}
 
 type AuthStateType = {
     role: 'student' | 'tpo' | 'hod' | 'alumni' | null;
     access_token: string | null;
 }
 
-type DriveType = {
-    branch : string[];
-    companyDetails: {
-        _id: string;
-        company_name: string;
-        company_website: string;
-    };
-    job_ctc: string;
-    job_location: string[];
-    job_title: string;
-    job_description: string;
-    rounds: RoundType[];
-    tenth_cutoff: number;
-    twelfth_cutoff: number;
-    ug_cutoff: number;
-}
-
 type RoundType = {
     round_no: number;
     round_name: string;
     date: Date;
-    qualified: string[]
 }
 
 type StudentDashboardType={
@@ -54,3 +28,69 @@ type StudentDashboardType={
         };
     }[]
 }
+
+type DriveData = {
+    _id: string;
+    company_id: string;
+    job_title: string;
+    tenth_cutoff: number;
+    twelfth_cutoff: number;
+    ug_cutoff?: any;
+    job_location: string[];
+    job_ctc: string;
+    branch: string[];
+    rounds: Round[];
+    registered: string[];
+    job_description: string;
+    company_details: CompanyDetails;
+  }
+
+type  CompanyDetails = {
+    _id: string;
+    company_name: string;
+    company_website: string;
+  }
+  type Round = {
+    round_no: number;
+    round_name: string;
+    date: string;
+  }
+
+  type DriveCardData = {
+    _id: string;
+    company_id: string;
+    job_title: string;
+    job_ctc: string;
+    company_name:string;
+    company_website: string;
+  }
+
+type ManageDriveDataType = {
+    _id: string
+    job_title: string
+    tenth_cutoff: number
+    twelfth_cutoff: number
+    ug_cutoff: any
+    job_location: string[]
+    job_ctc: string
+    branch: string[]
+    rounds: RoundType[]
+    job_description: string
+    company_details: Omit<CompanyDetails, _id>
+  }
+
+  type DriveStudentDataType = { 
+    _id: string
+  user_id: string
+  mobile: string
+  email: string
+  tenth_percentage: number
+  twelfth_percentage: number
+  ug_cgpa: number
+  dob: string
+  branch: string
+  first_name: string
+  middle_name: string
+  last_name: string
+  status: string}
+  

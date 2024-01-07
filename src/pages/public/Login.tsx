@@ -17,6 +17,15 @@ const Login = () => {
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabNumber(newValue);
     };
+    const navigate = useNavigate();
+
+    const { authState } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (authState.access_token) {
+            navigate(`/${authState.role}`)
+        }
+    }, [])
 
     return (
         <Box className={styles.mainContainer}>
