@@ -1,75 +1,70 @@
 
-import { Box } from '@mui/material';
+import { Box, InputAdornment, debounce } from '@mui/material';
 import { Autocomplete, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Form, Formik } from 'formik';
 import useAxiosPrivate from '../../../utils/axiosPrivate';
-
+import CompanyCard from '../../../Components/CompanyCard/CompanyCard';
+import SearchIcon from '@mui/icons-material/Search';
+import { useDebounce } from '@uidotdev/usehooks';
 
 
 const Companies = () => {
     const api = useAxiosPrivate();
     const [search, setSearch] = useState('');
-    const [options, setOptions] = useState<{ id: string, label: string }[]>([]);
+    const searchParams = useDebounce(search, 2000);
     const result = useQuery({
-        queryKey: ["company-list"],
+        queryKey: ["company-list", searchParams],
         queryFn: (): Promise<Array<{ id: string; label: string }>> => (
-            api.get('/alumni/getcompanylist', {
+            api.get('/alumni/companies', {
                 params: {
-                    search: search,
+                    search: searchParams,
                 }
             }).then(res => res.data)
-        )
-    })
+        ),
+    });
 
-    useEffect(() => {
-        if (result.isSuccess)
-            setOptions(result.data)
-    }, [result.status])
 
     return (
-        <Box width={"100%"} height={"98vh"} >
-            <Formik
-                initialValues={{
-                    company_id: '',
-                    company_name: ''
-                }}
-                onSubmit={(values) => {
-                    window.alert(JSON.stringify(values));
-                }}
-            >
-                {
-                    (props) => (
-                        <Form>
-                            <Box width={"100%"}>
-                                <Autocomplete
-                                    id='company_name'
-                                    options={options}
-                                    onChange={(event, value) => {
-                                        props.setFieldValue('company_name', value?.label);
-                                        props.setFieldValue('company_id', value?.id);
-                                    }}
-                                    isOptionEqualToValue={(option, value) => option.id === props.values.company_id}
-                                    inputValue={search}
-                                    onInputChange={(event, value) => { setSearch(value) }}
-                                    renderInput={(params) => (<TextField{...params}
-                                        placeholder='Enter Company Name'
-                                        value={props.values.company_name}
-                                        InputProps={{
-                                            ...params.InputProps,
-                                            type: 'search'
-                                        }}
-
-                                        fullWidth />)}
-
-                                />
-                            </Box>
-                        </Form>
+        <Box width={"100%"} height={"98vh"} display={'flex'} flexDirection={'column'} >
+            <TextField
+                variant='outlined'
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position='start'>
+                            <SearchIcon />
+                        </InputAdornment>
                     )
+                }}
+                placeholder='Search...'
+                value={search}
+                onChange={(e) =>
+                    setSearch(e.target.value)
                 }
-            </Formik>
+                sx={{
 
+                    position: 'relative',
+                    width: '15%',
+                    alignSelf: "end"
+                }}
+            />
+
+            <Box sx={{
+                width: '100%',
+                height: '90vh',
+                flex: 1,
+                flexDirection: 'row',
+                display: 'flex',
+                gap: '10px',
+                padding: '10px',
+                boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
+                margin: '5px'
+            }}>
+                {
+                    result.isSuccess && result.data?.map((company, index) => (<CompanyCard key={index} title={company.label} id={company.id} />))
+                }
+            </Box>
 
 
 

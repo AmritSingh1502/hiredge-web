@@ -93,4 +93,20 @@ type ManageDriveDataType = {
   middle_name: string
   last_name: string
   status: string}
+
+type CompanyData = {
+    _id: string
+    company_name: string
+    interview_experiences: Array<any>
+    company_website: string
+    placements: Array<{
+      year: number
+      placed_students: Array<{
+        full_name: string
+        branch: string
+        email: string
+      }>
+    }>
+  }
+  
   

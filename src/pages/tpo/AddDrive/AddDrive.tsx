@@ -192,9 +192,6 @@ const AddDrive = () => {
                                         inputMode='numeric'
                                         inputProps={{ min: 0, max: 100 }}
                                     />
-
-
-
                                 </Stack>
                                 <Stack direction={'row'} style={{
                                     alignItems: 'center'
@@ -215,7 +212,7 @@ const AddDrive = () => {
                                         theme='snow'
                                         placeholder='Enter Job Description....'
                                         value={props.values.job_description}
-                                        onChange={props.handleChange}
+                                        onChange={props.handleChange('job_description')}
                                         style={{
                                             // minHeight: '300px',
                                             height: '200px',

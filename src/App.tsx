@@ -32,6 +32,7 @@ import HODLayout from './pages/hod/Layout/Layout';
 import ManageDriveStatus from './pages/tpo/ManageDriveStatus/ManageDriveStatus';
 import ManageStudentDrive from './pages/tpo/ManageStudentDrive/ManageStudentDrive';
 import HomePage from './pages/public/HomePage/HomePage';
+import CompanyPage from './pages/alumni/CompanyPage/CompanyPage';
 
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route index element={<AlumniDashboard />} />
           <Route path='profile' element={<AlumniProfile />} />
           <Route path='experience' element={<AlumniCompany />} />
+          <Route path='company' element={<CompanyPage />}></Route>
         </Route>
 
         <Route path='hod' element={<ProtectedRoute role='hod'><HODLayout /></ProtectedRoute>} >
