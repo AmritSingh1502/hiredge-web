@@ -21,7 +21,8 @@ const StudentDashBoard = () => {
                 position: 'fixed',
                 top: '112px',
                 width: '100%',
-                height: '100vh'
+                height: '100vh',
+                marginTop:'40px'
             }}>
                 <Outlet />
             </Box>

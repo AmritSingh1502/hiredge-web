@@ -1,0 +1,17 @@
+
+.content-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.stats{
+    background: white;
+    width: 600px;
+    height: 450px;
+    position: relative;
+    top:130px;
+    left: 100px;
+    padding: 30px;
+    border-radius: 15px;
+}

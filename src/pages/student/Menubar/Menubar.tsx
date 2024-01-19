@@ -11,20 +11,29 @@ const MenuBar = () => {
             backgroundColor: '#191919',
             height: '50px',
             justifyContent: 'center',
-            margin: 0,
-            padding: 0,
-            top: '56px'
+            marginBottom: '20px',
+            padding: '40px',
+            top: '56px',
         }}>
             <Toolbar sx={{
                 alignItems: 'center',
                 columnGap: 5,
                 margin: 0,
                 padding: 0,
-                height: '50px'
+                height: '80px',
+                paddingTop:'20px',
+                paddingBottom:'20px'
             }}>
-                <Typography fontSize={'24px'} color="white" bgcolor={(path === '/student' ? '#29ADB2' : '')}
+                <Typography 
+                    borderRadius={'10px'} 
+                    textAlign={'center'}
+                    fontSize={'24px'} 
+                    color="white" 
+                    bgcolor={(path === '/student' ? '#29ADB2' : '')}
                     sx={{
-                        height: '50px'
+                        height: '50px',
+                        paddingLeft:'10px',
+                        paddingRight:'10px'
                     }}
                 ><Link to='' style={{
                     textDecoration: 'none',
