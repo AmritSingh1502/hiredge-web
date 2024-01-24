@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import TPOLogin from "./TpoLogin";
 import AlumniLogin from "./AlumniLogin";
 import HODLogin from "./HODLogin";
+import Logo from "./Logo";
+import StatsComponent from "./HomePage/StatsComponent";
+import './HomePage/HomePage.css';
 
 
 const Login = () => {
@@ -29,28 +32,33 @@ const Login = () => {
 
     return (
         <Box className={styles.mainContainer}>
-            <Box className={styles.loginBox}>
+            <div className="content-container">
+                <div className="stats">
+                    <StatsComponent/>
+                </div>
+                <Box className={styles.loginBox}>
+                    <Logo />
+                    <Tabs value={tabNumber} onChange={handleTabChange}>
+                        <Tab label="Student" />
+                        <Tab label="TPO" />
+                        <Tab label="HOD" />
+                        <Tab label="Alumni" />
+                    </Tabs>
+                    <CustomTabPanel index={0} value={tabNumber}>
+                        <StudentLogin />
+                    </CustomTabPanel>
+                    <CustomTabPanel index={1} value={tabNumber}>
+                        <TPOLogin />
+                    </CustomTabPanel>
+                    <CustomTabPanel index={2} value={tabNumber}>
+                        <HODLogin />
+                    </CustomTabPanel>
+                    <CustomTabPanel index={3} value={tabNumber}>
+                        <AlumniLogin />
+                    </CustomTabPanel>
 
-                <Tabs value={tabNumber} onChange={handleTabChange}>
-                    <Tab label="Student" />
-                    <Tab label="TPO" />
-                    <Tab label="HOD" />
-                    <Tab label="Alumni" />
-                </Tabs>
-                <CustomTabPanel index={0} value={tabNumber}>
-                    <StudentLogin />
-                </CustomTabPanel>
-                <CustomTabPanel index={1} value={tabNumber}>
-                    <TPOLogin />
-                </CustomTabPanel>
-                <CustomTabPanel index={2} value={tabNumber}>
-                    <HODLogin />
-                </CustomTabPanel>
-                <CustomTabPanel index={3} value={tabNumber}>
-                    <AlumniLogin />
-                </CustomTabPanel>
-
-            </Box>
+                </Box>
+            </div>
         </Box>
     )
 }

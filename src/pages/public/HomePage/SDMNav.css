@@ -1,0 +1,33 @@
+.container-nav{
+    display: flex;
+    height: 60px;
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    justify-content: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.heading{
+    position: relative;
+    top:20px;
+    left: 80px;
+    text-align: center;
+    color: white;
+}
+
+.title{
+    margin: 30px;
+}
+
+.image{
+    width: 20%;
+    height: 190px;
+}
+
+.logo{
+    position: relative;
+    top: 30px;
+    left: 10px;
+    width: 120px;
+    height: 120px;
+}

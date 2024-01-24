@@ -1,0 +1,12 @@
+.logo-login img{
+    height: 90px;
+    width: 70px;
+}
+
+.logo-login{
+    position: relative;
+    align-self: center;
+    margin-bottom: 19px;
+    height: 100px;
+
+}
