@@ -12,7 +12,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import AddIcon from '@mui/icons-material/Add';
 
 
-let branchList = ['CSE', 'ISE', 'ECE', 'EEE', 'CHEM', 'CIVIL', 'AI/ML', 'MECH']
+let branchList = ['CSE', 'ISE', 'ECE', 'EEE', 'CHEM', 'CIVIL', 'AI/ML', 'MECH'];
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -70,6 +70,7 @@ const AddDrive = () => {
 
             }} onSubmit={(values, formikHelpers) => {
                 window.alert(JSON.stringify(values));
+                console.log(values);
             }}>
 
                 {
@@ -162,8 +163,9 @@ const AddDrive = () => {
                                         )
 
                                     }
-
                                 </FieldArray>
+
+
 
 
                                 <Stack direction={'row'} style={{

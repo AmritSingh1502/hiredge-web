@@ -3,7 +3,7 @@ import { Box, Card, CardContent, Typography, CardActions, Button, Pagination } f
 
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import useAutocomplete from '@mui/material';
+// import useAutocomplete from '@mui/material';
 import useAxiosPrivate from '../../../utils/axiosPrivate';
 
 
@@ -13,7 +13,7 @@ const OngoingDrive = () => {
 
     const result = useQuery({
         queryKey: ['fetchOngoingDrives'],
-        queryFn: (): Promise<DriveData[]> =>
+        queryFn: (): Promise<DriveCardData[]> =>
             api.get('/student/getdrives').then(res => res.data).catch(e => { console.log(e) })
     })
 
@@ -33,11 +33,11 @@ const OngoingDrive = () => {
                         <Card sx={{ maxWidth: 345, minWidth: 140, backgroundColor: "lightblue" }} id={driveData._id} key={`${driveData._id}`}>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', fontFamily: 'Arial' }}>
-                                    {driveData.company_details.company_name}
+                                    {driveData.company_name || ""}
                                 </Typography>
 
                                 <Typography variant="body2" color="text.secondary">
-                                    <Link to={driveData.company_details.company_website} target='_blank'>Visit Company Website</Link>
+                                    <Link to={driveData.company_website} target='_blank'>Visit Company Website</Link>
                                 </Typography>
                             </CardContent>
                             <CardActions>
