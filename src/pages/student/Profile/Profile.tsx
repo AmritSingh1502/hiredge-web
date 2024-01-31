@@ -2,6 +2,7 @@ import Appbar from "../../common/Appbar";
 import ProfileCard from "./ProfileCard";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../../utils/axiosPrivate";
+import { useQuery } from "@tanstack/react-query";
 
 type StudentProfileType = {
     user_id: string;
@@ -19,39 +20,27 @@ type StudentProfileType = {
 
 const Profile = () => {
 
-    const axiosPrivate = useAxiosPrivate();
+    const api = useAxiosPrivate();
 
-    const [studentProfile, setStudentProfile] = useState<StudentProfileType | null>(null)
-
-    useEffect(() => {
-
-        const fetchData = () => {
-
-            axiosPrivate.get('/student/profile').then((res) => {
-                console.log(res.data);
-                setStudentProfile(res.data);
-            }).catch((e) => {
-                console.log(e);
-            })
-        }
-
-        fetchData();
-
-    }, [])
+    const result = useQuery({
+        queryKey: ["fetchStudentProfile"],
+        queryFn: (): Promise<StudentProfileType> => (
+            api.get('/student/profile').then(res => res.data)
+        )
+    })
 
     return (
         <>
-            {studentProfile
-                &&
+            {result.isSuccess &&
                 <ProfileCard
-                    USN={studentProfile?.user_id}
-                    Name={`${studentProfile?.first_name} ${studentProfile.middle_name} ${studentProfile.last_name}`}
-                    Branch={studentProfile.branch}
-                    CGPA={studentProfile.ug_cgpa}
-                    SSE={studentProfile.twelfth_percentage}
-                    SE={studentProfile.tenth_percentage}
-                    Mail={studentProfile.email}
-                    Phone={studentProfile.mobile}
+                USN={result.data?.user_id}
+                Name={`${result.data?.first_name} ${result.data.middle_name} ${result.data.last_name}`}
+                Branch={result.data.branch}
+                CGPA={result.data.ug_cgpa}
+                SSE={result.data.twelfth_percentage}
+                SE={result.data.tenth_percentage}
+                Mail={result.data.email}
+                Phone={result.data.mobile}
                 />
             }
 

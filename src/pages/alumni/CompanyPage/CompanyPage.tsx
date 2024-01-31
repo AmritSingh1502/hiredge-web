@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../../utils/axiosPrivate";
 
 import Add from "@mui/icons-material/Add";
@@ -44,7 +44,7 @@ const CompanyPage = () => {
             flexDirection: 'column'
         }}>
             <Box>
-                <Typography>Company Name:  {result.data?.company_name}</Typography>
+                <Typography variant="h1">Company Name:  {result.data?.company_name}</Typography>
             </Box>
             <Button color="success" variant="outlined"
                 startIcon={<Add />}

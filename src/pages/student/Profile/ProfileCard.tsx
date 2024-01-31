@@ -1,4 +1,4 @@
-import { Box, Button, Link, Typography } from "@mui/material";
+import { Avatar, Box, Button, Link, Typography } from "@mui/material";
 
 const ProfileCard = (props:
   { USN: string, Name: string, Branch: string, CGPA: string, SSE: string, SE: string, Mail: string, Phone: string }) => {
@@ -29,17 +29,11 @@ const ProfileCard = (props:
         mt={2}
         mb={2}
       >
-        <img
-          src="149071.png"
-          alt="profile"
-          width={100}
-          height={100}
-          style={{ borderRadius: '50%', border: '2px solid #1976d2' }}
-        />
+        <Avatar sx={{ bgcolor: 'red', width: '10vh', height: '10vh', fontSize: '7vh' }}>{props.Name[0]}</Avatar>
       </Box>
 
       <Typography fontWeight={500} color="black">
-        <strong>USN: </strong>{props.USN}
+        <strong>USN: </strong>{props.USN.toUpperCase()}
       </Typography>
 
       <Typography fontWeight={500} color="#black" mt={1}>

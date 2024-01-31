@@ -59,7 +59,8 @@ const Companies = () => {
                 gap: '10px',
                 padding: '10px',
                 boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
-                margin: '5px'
+                margin: '5px',
+                flexWrap: 'wrap',
             }}>
                 {
                     result.isSuccess && result.data?.map((company, index) => (<CompanyCard key={index} title={company.label} id={company.id} />))

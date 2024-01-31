@@ -35,7 +35,7 @@ const InterviewExperiences: FC<InterviewExperiencesProps> = (props) => {
         {
 
             result.data?.map((val, index) => (
-                <>{index} {val.interview_experiences.experience} </>
+                <Typography key={index}>{index} {val.interview_experiences.experience} </Typography>
             ))
 
         }

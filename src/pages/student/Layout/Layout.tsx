@@ -18,10 +18,9 @@ const StudentDashBoard = () => {
             <Appbar role="Student" />
             <MenuBar />
             <Box sx={{
-                position: 'fixed',
+                position: 'relative',
                 top: '112px',
                 width: '100%',
-                height: '100vh',
                 marginTop:'40px'
             }}>
                 <Outlet />

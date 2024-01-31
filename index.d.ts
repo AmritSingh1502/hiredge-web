@@ -108,5 +108,38 @@ type CompanyData = {
       }>
     }>
   }
+
+  type StudentDriveCardType ={
+    _id: string;
+    comapny_id: string;
+    job_title: string;
+    job_ctc: string;
+    company_name: string;
+    company_website: string;
+    eligible : boolean;
+  }
   
-  
+  type StudentDrivesResponseType = {
+    metadata: {
+      totalCount: number;
+      pageCount: number;
+    };
+    data: Array<StudentDriveCardType>
+  }
+
+
+
+  type CompanyCardType = {
+    _id: string;
+    company_name: string;
+    company_website: string;
+  }
+
+
+  type CompaniesResponseType = {
+  metadata: {
+      totalCount: number;
+      pageCount: number;
+    };
+    data: Array<CompanyCardType>;
+  }
